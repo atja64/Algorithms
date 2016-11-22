@@ -25,7 +25,8 @@ public class Algorithms {
             ar[i] = randomGenerator.nextInt(100);
         }
         System.out.println(Arrays.toString(ar));
-        System.out.println(Arrays.toString(QuickSort.sort(ar)));
+        QuickSort.sort(ar, 0, arLength - 1);
+        System.out.println(Arrays.toString(ar));
     }
     
 }
