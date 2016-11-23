@@ -18,15 +18,22 @@ public class Algorithms {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int arLength = 10;
-        Random randomGenerator = new Random();
-        int[] ar = new int[arLength];
-        for (int i = 0; i < arLength; i++) {
-            ar[i] = randomGenerator.nextInt(100);
-        }
-        System.out.println(Arrays.toString(ar));
-        QuickSort.sort(ar, 0, arLength - 1);
-        System.out.println(Arrays.toString(ar));
+        int[] temp = newAr(10, 100);
+        System.out.println(Arrays.toString(temp));
+        QuickSort.sortLomuto(temp, 0, 10 - 1);
+        System.out.println(Arrays.toString(temp));
+        temp = newAr(10, 100);
+        System.out.println(Arrays.toString(temp));
+        QuickSort.sortHoare(temp, 0, 10 - 1);
+        System.out.println(Arrays.toString(temp));
     }
     
+    private static int[] newAr(int length, int bound) {
+        Random rG = new Random();
+        int[] ar = new int[length];
+        for (int i = 0; i < length; i++) {
+            ar[i] = rG.nextInt(bound);
+        }
+        return ar;
+    }
 }

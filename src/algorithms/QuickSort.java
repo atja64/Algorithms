@@ -21,15 +21,15 @@ public class QuickSort {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
     
-    public static void sort(int[] ar, int lo, int hi) {
+    public static void sortLomuto(int[] ar, int lo, int hi) {
         if (lo < hi) {
-            int p = partition(ar, lo, hi);
-            sort(ar, lo, p - 1);
-            sort(ar, p + 1, hi);
+            int p = partitionLomuto(ar, lo, hi);
+            sortLomuto(ar, lo, p - 1);
+            sortLomuto(ar, p + 1, hi);
         }
     }
     
-    private static int partition(int[] ar, int lo, int hi) {
+    private static int partitionLomuto(int[] ar, int lo, int hi) {
         int pivot = ar[hi];
         int i = lo;
         for (int j = lo; j < hi; j++) {
@@ -42,31 +42,35 @@ public class QuickSort {
         return i;
     }
     
+    public static void sortHoare(int[] ar, int lo, int hi) {
+        if (lo < hi) {
+            int p = partitionHoare(ar, lo, hi);
+            sortHoare(ar, lo, p);
+            sortHoare(ar, p + 1, hi);
+        }
+    }
+    
+    private static int partitionHoare(int[] ar, int lo, int hi) {
+        int pivot = ar[lo];
+        int i = lo - 1;
+        int j = hi + 1;
+        while (true) {
+            do {
+                i++;
+            } while (ar[i] < pivot);
+            do {
+                j--;
+            } while (ar[j] > pivot);
+            if (i >= j) {
+                return j;
+            }
+            swapElem(ar, i, j);
+        }
+    }
+    
     private static void swapElem(int[] ar, int i1, int i2) {
         int temp = ar[i1];
         ar[i1] = ar[i2];
         ar[i2] = temp;
-    }
-    
-    private static void printArray(int[] ar, int to, int pivot, int from, int pass) {
-        System.out.printf("%02d", pass);
-        System.out.print(" [");
-        String colour;
-        for (int j = 0; j < ar.length; j++) {
-            if (j == to) {
-                colour = ANSI_GREEN;
-            } else if (j == pivot) {
-                colour = ANSI_RED;
-            } else if (j == from) {
-                colour = ANSI_BLUE;
-            } else {
-                colour = ANSI_RESET;
-            }
-            if (j == ar.length - 1) {
-                System.out.println(colour + ar[j] + ANSI_RESET + "]");
-            } else {
-                System.out.print(colour + ar[j] + ANSI_RESET + ", ");                
-            }
-        }   
     }
 }
